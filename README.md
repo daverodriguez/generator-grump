@@ -15,14 +15,18 @@ including:
 
 Grump-grump also preconfigures your plugins in Gruntfile.js to get you started more quickly!
 
+**Coming Soon to NPM, once I test it :)**
+
+<!--
 ## Instructions
 To install Grump-grump from npm, open up a console and run:
 
 ```
 npm install -g yo generator-grump
 ```
+-->
 
-Finally, initiate the generator with `yo grump`.
+Initiate the generator with `yo grump`.
 
 Once everything is installed, run `grunt` to build the project and `grunt connect` to start a local web server.
 
