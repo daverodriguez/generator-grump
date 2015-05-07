@@ -17,18 +17,20 @@ Grump-grump also preconfigures your plugins in Gruntfile.js to get you started m
 
 **Coming Soon to NPM, once I test it :)**
 
-<!--
 ## Instructions
 To install Grump-grump from npm, open up a console and run:
 
 ```
 npm install -g yo generator-grump
 ```
--->
 
-Initiate the generator with `yo grump`.
+Initiate the generator with `yo grump`. Go get a cup of coffee, this is going to take a while.
 
 Once everything is installed, run `grunt` to build the project and `grunt connect` to start a local web server.
+Grump-grump installs everything you need to start building HTML templates using LESS and bake (for including HTML partials).
+
+Use `grunt watch` while you're developing and Grump-grump will monitor your image, LESS, JS, and font folders for changes
+and trigger a build when necessary (with livereload!)
 
 ## License
 
