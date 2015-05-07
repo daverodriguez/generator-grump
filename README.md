@@ -15,8 +15,6 @@ including:
 
 Grump-grump also preconfigures your plugins in Gruntfile.js to get you started more quickly!
 
-**Coming Soon to NPM, once I test it :)**
-
 ## Instructions
 To install Grump-grump from npm, open up a console and run:
 
