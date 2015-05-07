@@ -54,7 +54,7 @@ var GrumpGenerator = yeoman.generators.Base.extend({
 				default: 'src'
 			},
 			{
-				name: 'srcDir',
+				name: 'includesPath',
 				message: 'Where would you like to store HTML includes (inside the source folder)?',
 				default: 'includes'
 			},
@@ -122,6 +122,7 @@ var GrumpGenerator = yeoman.generators.Base.extend({
 			this.stylePath = props.stylePath;
 			this.compiledStylePath = props.compiledStylePath;
 			this.fontsPath = props.fontsPath;
+			this.includesPath = props.includesPath;
 			this.srcDir = props.srcDir;
 			this.buildDir = props.buildDir;
 			this.connectPort = props.connectPort;
@@ -149,8 +150,8 @@ var GrumpGenerator = yeoman.generators.Base.extend({
 			this.mkdir( slash(path.join(this.srcDir, this.imgPath)) );
 
 			this.src.copy('less/app.less', slash(path.join(this.srcDir, this.stylePath, 'app.less')) );
-			this.src.copy('includes/header.html', slash(path.join(this.srcDir, this.includesPath, 'header.html')) );
-			this.src.copy('includes/footer.html', slash(path.join(this.srcDir, this.includesPath, 'footer.html')) );
+			this.template('includes/header.html', slash(path.join(this.srcDir, this.includesPath, 'header.html')) );
+			this.template('includes/footer.html', slash(path.join(this.srcDir, this.includesPath, 'footer.html')) );
 
 			this.template('example.html', slash(path.join(this.srcDir, 'example.html')) );
 		},
