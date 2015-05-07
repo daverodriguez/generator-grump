@@ -1,6 +1,6 @@
 {
 	"name": "generator-grump",
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"description": "A Yeoman generator for static template builds, powered by robots.",
 	"license": "MIT",
 	"main": "app/index.js",
