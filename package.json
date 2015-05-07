@@ -1,39 +1,45 @@
 {
-  "name": "generator-grump",
-  "version": "0.1.0",
-  "description": "A Yeoman generator for static template builds, powered by robots.",
-  "license": "MIT",
-  "main": "app/index.js",
-  "repository": "daverodriguez/generator-grump",
-  "author": {
-    "name": "Dave Rodriguez",
-    "email": "",
-    "url": "https://github.com/daverodriguez"
-  },
-  "engines": {
-    "node": ">=0.10.0"
-  },
-  "scripts": {
-    "test": "mocha"
-  },
-  "files": [
-    "app"
-  ],
-  "keywords": [
-    "yeoman-generator"
-  ],
-  "dependencies": {
-    "yeoman-generator": "^0.17.0",
-    "chalk": "^0.5.0",
-    "yosay": "^0.3.0",
-    "gruntfile-editor": "^0.2.0",
-    "slash": "^1.0.0"
-  },
-  "devDependencies": {
-    "mocha": "*"
-  },
-  "peerDependencies": {
-    "yo": ">=1.0.0",
-    "generator-hanbs": ">=0.1.4"
-  }
+	"name": "generator-grump",
+	"version": "0.1.0",
+	"description": "A Yeoman generator for static template builds, powered by robots.",
+	"license": "MIT",
+	"main": "app/index.js",
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/daverodriguez/generator-grump.git"
+	},
+	"homepage": "https://github.com/daverodriguez/generator-grump",
+	"bugs": "https://github.com/daverodriguez/generator-grump/issues",
+	"author": {
+		"name": "Dave Rodriguez",
+		"email": "dave.rodriguez@hansoninc.com",
+		"url": "https://github.com/daverodriguez"
+	},
+	"engines": {
+		"node": ">=0.10.0"
+	},
+	"scripts": {
+		"test": "mocha"
+	},
+	"files": [
+		"app"
+	],
+	"keywords": [
+		"yeoman-generator",
+		"grump-grump"
+	],
+	"dependencies": {
+		"yeoman-generator": "^0.17.0",
+		"chalk": "^0.5.0",
+		"yosay": "^0.3.0",
+		"gruntfile-editor": "^0.2.0",
+		"slash": "^1.0.0"
+	},
+	"devDependencies": {
+		"mocha": "*"
+	},
+	"peerDependencies": {
+		"yo": ">=1.0.0",
+		"generator-hanbs": ">=0.1.4"
+	}
 }
