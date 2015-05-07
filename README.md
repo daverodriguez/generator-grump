@@ -5,13 +5,13 @@
 Grump-grump is a [Yeoman](http://yeoman.io) generator. It installs all the Grunt plugins you need for simple build projects,
 including:
 
-- grunt-contrib-connect
-- grunt-contrib-watch
-- grunt-bake
-- grunt-contrib less
-- grunt-contrib-uglify
-- grunt-contrib-copy
-- grunt-imagemin
+- [grunt-contrib-connect](https://github.com/gruntjs/grunt-contrib-connect) - A lighweight local web server
+- [grunt-contrib-watch](https://github.com/gruntjs/grunt-contrib-watch) - To monitor and automatically rebuild when files in your project change
+- [grunt-bake](https://github.com/MathiasPaumgarten/grunt-bake) - Simple templating and includes for  HTML
+- [grunt-contrib-less](https://github.com/gruntjs/grunt-contrib-less) - LESS CSS preprocessing
+- [grunt-contrib-uglify](https://github.com/gruntjs/grunt-contrib-uglify) - For concatenating and minifying JavaScript
+- [grunt-contrib-copy](https://github.com/gruntjs/grunt-contrib-copy) - Automatically copies files from the source to the build folder
+- [grunt-contrib-imagemin](https://github.com/gruntjs/grunt-contrib-imagemin) - Optimizes images added to your project
 
 Grump-grump also preconfigures your plugins in Gruntfile.js to get you started more quickly!
 

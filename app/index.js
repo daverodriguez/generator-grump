@@ -54,33 +54,38 @@ var GrumpGenerator = yeoman.generators.Base.extend({
 				default: 'src'
 			},
 			{
+				name: 'srcDir',
+				message: 'Where would you like to store HTML includes (inside the source folder)?',
+				default: 'includes'
+			},
+			{
 				name: 'jsPath',
-				message: 'What is the path to your JavaScript folder (inside the source folder)?',
+				message: 'Where would you like to store your JavaScript files (inside the source folder)?',
 				default: 'js'
 			},
 			{
 				name: 'imgPath',
-				message: 'What is the path to your image folder (inside the source folder)?',
+				message: 'Where would you like to keep images (inside the source folder)?',
 				default: 'img'
 			},
 			{
+				name: 'fontsPath',
+				message: 'Where would you like to put your fonts (inside the source folder)?',
+				default: 'fonts'
+			},
+			{
 				name: 'stylePath',
-				message: 'What is the path to your stylesheet folder (inside the source folder)?',
+				message: 'Where would you like to put your stylesheets (inside the source folder)?',
 				default: 'less'
 			},
 			{
 				name: 'compiledStylePath',
-				message: 'What is the path to your compiled stylesheet folder (inside the build folder)?',
+				message: 'Where would you like your compiled stylesheets to be output (inside the build folder)?',
 				default: 'css'
 			},
 			{
-				name: 'fontsPath',
-				message: 'What is the path to your fonts folder (inside the source folder)?',
-				default: 'fonts'
-			},
-			{
 				name: 'buildDir',
-				message: 'Where is your build directory?',
+				message: 'Where would you like your build directory?',
 				default: 'build'
 			},
 			{
@@ -101,7 +106,7 @@ var GrumpGenerator = yeoman.generators.Base.extend({
 			{
 				type: 'confirm',
 				name: 'includeFileindex',
-				message: 'Do you want to generate an index file at the root of your project?',
+				message: 'Do you want a task to generate a template listing at the root of your project?',
 				default: true
 			}
 		];
@@ -129,23 +134,35 @@ var GrumpGenerator = yeoman.generators.Base.extend({
 
 	writing: {
 		app: function () {
-			this.src.copy('_package.json', 'package.json');
-			this.src.copy('_bower.json', 'bower.json');
+			this.template('_package.json', 'package.json');
+			this.template('_bower.json', 'bower.json');
 		},
 
 		projectfiles: function () {
 			this.src.copy('editorconfig', '.editorconfig');
 			this.src.copy('jshintrc', '.jshintrc');
+
+			this.mkdir(this.buildDir);
+			this.mkdir(this.srcDir);
+			this.mkdir( slash(path.join(this.srcDir, this.stylePath)) );
+			this.mkdir( slash(path.join(this.srcDir, this.fontsPath)) );
+			this.mkdir( slash(path.join(this.srcDir, this.imgPath)) );
+
+			this.src.copy('less/app.less', slash(path.join(this.srcDir, this.stylePath, 'app.less')) );
+			this.src.copy('includes/header.html', slash(path.join(this.srcDir, this.includesPath, 'header.html')) );
+			this.src.copy('includes/footer.html', slash(path.join(this.srcDir, this.includesPath, 'footer.html')) );
+
+			this.template('example.html', slash(path.join(this.srcDir, 'example.html')) );
 		},
 
 		gruntfile: function() {
 			// Add gruntfile configs
-			this.gruntfile.insertConfig('bake', "{ default: { files: { '" + slash(path.join(this.buildDir, '/index.html') + "': '" + path.join(this.srcDir, '/index.html') + "' } } }"));
+			this.gruntfile.insertConfig('bake', "{ default: { files: { '" + slash(path.join(this.buildDir, '/example.html') + "': '" + path.join(this.srcDir, '/example.html') + "' } } }"));
 			this.gruntfile.insertConfig('connect', "{ server: { options: { port: " + this.connectPort + ", keepalive: true, livereload: true, base : '" + this.buildDir + "', hostname: '*' } } }");
 			this.gruntfile.insertConfig('copy', "{ js: { files: [ { expand: true, cwd: '" + slash(path.join(this.srcDir, this.jsPath)) + "', src: ['**'], dest: '" + slash(path.join(this.buildDir, this.jsPath)) + "' } ] }, img: { files: [ { expand: true, cwd: '" + slash(path.join(this.srcDir, this.imgPath)) + "', src: ['**'], dest: '" + slash(path.join(this.buildDir, this.imgPath)) + "' } ] }, fonts: { files: [ { expand: true, cwd: '" + slash(path.join(this.srcDir, this.fontsPath)) + "', src: ['**'], dest: '" + slash(path.join(this.buildDir, this.fontsPath)) + "' } ] } }");
 			this.gruntfile.insertConfig('imagemin', "{ png: { options: { optimizationLevel: 7 }, files: [ { expand: true, cwd: '"+ slash(path.join(this.srcDir, this.imgPath)) + "', src: ['**/*.{png,jpg}'], dest: '"+ slash(path.join(this.srcDir, this.imgPath)) + "' } ] } }");
 			this.gruntfile.insertConfig('less', "{ default: { files: { '" + slash(path.join(this.buildDir, this.compiledStylePath, 'app.css')) + "': '" + slash(path.join(this.srcDir, this.stylePath, 'app.less')) + "' } } }");
-			this.gruntfile.insertConfig('uglify', "{ js: { files: { '" + slash(path.join(this.buildDir, this.jsPath, 'libs.js')) + "' : ['" + slash(path.join(this.buildDir, this.jsPath, 'lib/hbs.js')) + "'] } } }");
+			this.gruntfile.insertConfig('uglify', "{ js: { files: { '" + slash(path.join(this.buildDir, this.jsPath, 'libs.js')) + "' : ['" + slash(path.join(this.srcDir, this.jsPath, 'lib/hbs.js')) + "'] } } }");
 			this.gruntfile.insertConfig('watch', "{ less: { files: ['" + slash(path.join(this.srcDir, '**/*.less')) + "'], tasks: ['less'], options: { livereload: true } }, html: { files: ['" + slash(path.join(this.srcDir, '**/*.html')) + "'], tasks: ['bake'], options: { livereload: true } }, js: { files: ['" + slash(path.join(this.srcDir, '**/*.js')) + "'], tasks: ['copy', 'uglify'], options: { livereload: true } }, img: { files: ['" + slash(path.join(this.srcDir, '**/*.{png,gif,jpg}')) + "'], tasks: ['copy:img', 'imagemin'] } }");
 
 			// Optional task configs
@@ -160,7 +177,6 @@ var GrumpGenerator = yeoman.generators.Base.extend({
 
 			// Load NPM tasks
 			this.gruntfile.loadNpmTasks('grunt-bake');
-			this.gruntfile.loadNpmTasks('grunt-contrib-concat');
 			this.gruntfile.loadNpmTasks('grunt-contrib-connect');
 			this.gruntfile.loadNpmTasks('grunt-contrib-copy');
 			this.gruntfile.loadNpmTasks('grunt-contrib-imagemin');
@@ -178,7 +194,7 @@ var GrumpGenerator = yeoman.generators.Base.extend({
 			}
 
 			// Register default tasks
-			var defaultTasks = ['less', 'bake', 'concat', 'uglify', 'copy'];
+			var defaultTasks = ['less', 'bake', 'uglify', 'copy'];
 
 			// Optional task
 			if (this.includeFileindex) {
@@ -199,7 +215,6 @@ var GrumpGenerator = yeoman.generators.Base.extend({
 		var deps = [
 			'grunt',
 			'grunt-bake',
-			'grunt-contrib-concat',
 			'grunt-contrib-connect',
 			'grunt-contrib-copy',
 			'grunt-contrib-imagemin',
@@ -219,11 +234,16 @@ var GrumpGenerator = yeoman.generators.Base.extend({
 
 		this.npmInstall( deps, {'saveDev': true}, null );
 
+		var bowerDeps = [
+			'bootstrap'
+		];
+
+		this.bowerInstall( bowerDeps, {'saveDev': true}, null );
 
 	},
 
 	end: function () {
-		this.installDependencies();
+		//this.installDependencies();
 	}
 });
 
