@@ -19,7 +19,7 @@ Grump-grump also preconfigures your plugins in Gruntfile.js to get you started m
 To install Grump-grump from npm, open up a console and run:
 
 ```
-npm install -g yo generator-grump
+npm install -g yo generator-grump generator-hanbs
 ```
 
 Initiate the generator with `yo grump`. Go get a cup of coffee, this is going to take a while.

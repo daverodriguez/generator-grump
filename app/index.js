@@ -142,6 +142,7 @@ var GrumpGenerator = yeoman.generators.Base.extend({
 		projectfiles: function () {
 			this.src.copy('editorconfig', '.editorconfig');
 			this.src.copy('jshintrc', '.jshintrc');
+			this.src.copy('gitignore', '.gitignore');
 
 			this.mkdir(this.buildDir);
 			this.mkdir(this.srcDir);
